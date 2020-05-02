@@ -3,3 +3,10 @@
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+
+let generateBtn = document.getElementById("generate");
+generateBtn.addEventListener("click", onClickGenerate);
+
+function onClickGenerate() {
+  
+}
