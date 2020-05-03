@@ -31,3 +31,15 @@ const server = app.listen(port, listening);
 function listening() {
   console.log(`running on localhost: ${port}`);
 };
+
+app.post('/add', function (req, res) {
+  node = {
+    temperature: req.body.temperature,
+    data: req.body.data,
+    journalEntry: req.body.journalEntry
+  }
+});
+
+app.get('/getAllData', function (req, res) {
+  res.send(projectData);
+});
