@@ -1,7 +1,8 @@
 /* Global Variables */
-const apiKey = "";
+const apiKey = "API_KEY";
+const apiURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 const postURL = "/add";
-const getURL = "/getAllData";
+const getURL = "/getData";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -17,16 +18,10 @@ function onClickGenerate() {
   if (isUserInputValid(feelings, zip)) {
     getWeatherFromAPI(zip)
       .then(function (data) {
-        sendDataToServer(postURL,
-          {
-            temperature: data.main.temp,
-            date: newDate,
-            journalEntry: feelings
-          }
-        );
-        updateUI(getURL);
+        sendDataToServer(postURL, { temperature: data.main.temp,
+            date: newDate, journalEntry: feelings })
+        .then(updateUI(getURL));
       })
-
   } else {
     console.error("User input is not valid. Please check zip and input.");
   }
@@ -69,10 +64,9 @@ const updateUI = async(url) => {
   const response = await fetch(url);
   try {
       const data = await response.json();
-      let idxOfMostRecent = data.length - 1;
-      // document.getElementById('date').innerHTML = data[idxOfMostRecent].date;
-      // document.getElementById('temp').innerHTML = data[idxOfMostRecent].temperature;
-      // document.getElementById('content').innerHTML = data[idxOfMostRecent].userResponse;
+      document.getElementById('date').innerHTML = data.date;
+      document.getElementById('temp').innerHTML = data.temperature;
+      document.getElementById('content').innerHTML = data.journalEntry;
   } catch(error) {
       console.log('error', error);
   };
